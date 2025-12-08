@@ -1,4 +1,4 @@
-# Web / API
+# FastAPI + server
 fastapi
 uvicorn[standard]
 python-multipart
@@ -19,8 +19,9 @@ pdf2image
 Pillow
 opencv-python-headless
 
-# NLP / Transformers
+# NLP
 transformers
+sentence-transformers
 tokenizers
 
 # Cloud / Storage
@@ -39,3 +40,6 @@ PyPDF2
 numpy<2
 python-dateutil
 tqdm
+
+# Optional: for memory-efficient temp files
+pdf2image[pillow]
