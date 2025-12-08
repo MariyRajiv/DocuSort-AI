@@ -1,3 +1,4 @@
+# Web / API
 fastapi
 uvicorn[standard]
 python-multipart
@@ -13,16 +14,13 @@ easyocr==1.7.1
 torch==2.3.0+cpu
 torchvision==0.18.0+cpu
 
-
-
 # PDF / Image
 pdf2image
 Pillow
 opencv-python-headless
 
-# NLP
+# NLP / Transformers
 transformers
-sentence-transformers
 tokenizers
 
 # Cloud / Storage
