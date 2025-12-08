@@ -102,3 +102,6 @@ android-sdk/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Backend environment
+backend/.env
