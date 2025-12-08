@@ -1,0 +1,5 @@
+/* Minimal custom styles - most styling via Tailwind */
+
+.App {
+  min-height: 100vh;
+}

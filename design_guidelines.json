@@ -1,0 +1,154 @@
+{
+  "identity": {
+    "name": "DocuSort AI",
+    "archetype": "Swiss & High-Contrast",
+    "vibe": "Objective, Rigid, Functional, Invisible Tech",
+    "emotional_goal": "Clarity in Chaos - Organizing files should feel satisfyingly precise."
+  },
+  "typography": {
+    "primary_font": "Manrope",
+    "secondary_font": "Public Sans",
+    "mono_font": "JetBrains Mono",
+    "usage": {
+      "headings": "Manrope, font-bold, tracking-tight, text-zinc-900",
+      "body": "Public Sans, font-normal, text-zinc-600, leading-relaxed",
+      "data_display": "JetBrains Mono, font-medium, text-zinc-500 (used for confidence scores, file types, IDs)",
+      "ui_labels": "Public Sans, font-semibold, uppercase, tracking-widest, text-xs"
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl font-extrabold tracking-tighter",
+      "h2": "text-3xl font-bold tracking-tight",
+      "h3": "text-xl font-semibold",
+      "body": "text-base",
+      "small": "text-sm"
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": "#FFFFFF",
+      "foreground": "#09090B",
+      "primary": "#2563EB",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#F4F4F5",
+      "secondary_foreground": "#18181B",
+      "muted": "#F4F4F5",
+      "muted_foreground": "#71717A",
+      "accent": "#F4F4F5",
+      "accent_foreground": "#18181B",
+      "border": "#E4E4E7",
+      "input": "#E4E4E7",
+      "ring": "#2563EB"
+    },
+    "semantic": {
+      "success": "#16A34A",
+      "warning": "#F59E0B",
+      "error": "#DC2626",
+      "info": "#2563EB",
+      "processing": "#2563EB"
+    },
+    "gradients": {
+      "subtle_glow": "bg-gradient-to-b from-white to-zinc-50",
+      "active_border": "bg-gradient-to-r from-transparent via-blue-500 to-transparent"
+    }
+  },
+  "layout": {
+    "spacing_system": {
+      "base": "p-6",
+      "container_padding": "p-8 md:p-12",
+      "section_gap": "gap-12",
+      "item_gap": "gap-4"
+    },
+    "grid_strategies": {
+      "dashboard_stats": "grid grid-cols-1 md:grid-cols-4 gap-6",
+      "file_list": "flex flex-col gap-3",
+      "results_grid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    },
+    "containers": {
+      "main_wrapper": "max-w-7xl mx-auto w-full min-h-screen bg-white",
+      "card_style": "border border-zinc-200 bg-white rounded-lg shadow-none hover:border-zinc-300 transition-colors"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-zinc-900 text-white hover:bg-zinc-800 rounded-md px-8 py-3 font-medium transition-all active:scale-95",
+      "secondary": "bg-white border border-zinc-200 text-zinc-900 hover:bg-zinc-50 rounded-md px-6 py-3 font-medium",
+      "ghost": "hover:bg-zinc-100 text-zinc-600 hover:text-zinc-900"
+    },
+    "inputs": {
+      "default": "h-12 rounded-md border-zinc-200 bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-zinc-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-900 disabled:cursor-not-allowed disabled:opacity-50"
+    },
+    "cards": {
+      "base": "rounded-lg border border-zinc-200 bg-card text-card-foreground shadow-none",
+      "hover_effect": "hover:border-zinc-300 transition-colors duration-200"
+    },
+    "upload_zone": {
+      "style": "border-2 border-dashed border-zinc-200 rounded-xl p-12 flex flex-col items-center justify-center text-center hover:border-blue-500 hover:bg-blue-50/50 transition-all cursor-pointer group",
+      "active": "border-blue-500 bg-blue-50/50 ring-2 ring-blue-500/20"
+    },
+    "status_badge": {
+      "base": "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+      "success": "border-transparent bg-green-50 text-green-700 hover:bg-green-100",
+      "processing": "border-transparent bg-blue-50 text-blue-700 hover:bg-blue-100 animate-pulse",
+      "error": "border-transparent bg-red-50 text-red-700 hover:bg-red-100"
+    }
+  },
+  "motion": {
+    "libraries": ["framer-motion"],
+    "animations": {
+      "fade_in": {
+        "initial": { "opacity": 0, "y": 10 },
+        "animate": { "opacity": 1, "y": 0 },
+        "transition": { "duration": 0.4, "ease": "easeOut" }
+      },
+      "stagger_list": {
+        "container": {
+          "hidden": { "opacity": 0 },
+          "show": {
+            "opacity": 1,
+            "transition": { "staggerChildren": 0.1 }
+          }
+        },
+        "item": {
+          "hidden": { "opacity": 0, "y": 20 },
+          "show": { "opacity": 1, "y": 0 }
+        }
+      },
+      "progress_bar": {
+        "initial": { "width": "0%" },
+        "animate": { "width": "100%" },
+        "transition": { "ease": "linear" }
+      }
+    }
+  },
+  "assets": {
+    "icons": "lucide-react",
+    "images": [
+      {
+        "category": "background_texture",
+        "url": "https://images.unsplash.com/photo-1692889783742-7d99b124c402?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMG1pbmltYWxpc3QlMjB3aGl0ZSUyMGdlb21ldHJpYyUyMHNoYXBlc3xlbnwwfHx8fDE3NjUxMTYyMTJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract white geometric structure for subtle background overlays or empty states"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Use 'Manrope' for all headings and 'Public Sans' for body text. Import them via Google Fonts in index.css.",
+    "Implement the 'Control Room' grid for the dashboard layout.",
+    "The File Upload area must be the 'Hero' element - large, spacious (p-20), and centrally aligned initially.",
+    "Use 'JetBrains Mono' for any technical data like Confidence Score (e.g., '0.98'), File Size, or JSON previews.",
+    "Do not use default Shadcn shadows. Flatten the design using 'shadow-none' and rely on 'border-zinc-200'.",
+    "For the 'Processing' state, use a subtle pulse animation on the card border or a thin progress bar.",
+    "Ensure the 'History' panel uses a dense list layout (row-based) rather than large cards.",
+    "Use the provided abstract image as a subtle background for the 'Empty State' of the history panel or upload area.",
+    "Strictly follow the 'Swiss & High-Contrast' color archetype: White background, Black text, Blue accents.",
+    "Add 'data-testid' to all interactive elements."
+  ],
+  "universal_guidelines": [
+    "Avoid generic centered layouts; use asymmetry where possible.",
+    "Use 2-3x more spacing than typical designs.",
+    "Every interaction needs micro-animations (hover, focus, active).",
+    "Never use 'transition: all'. Specify properties.",
+    "Use 'sonner' for toast notifications.",
+    "Components must use named exports.",
+    "Pages must use default exports."
+  ]
+}
