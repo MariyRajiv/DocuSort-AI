@@ -1,3 +1,4 @@
+# --- Core framework ---
 fastapi
 uvicorn[standard]
 python-multipart
@@ -5,21 +6,20 @@ pydantic
 python-dotenv
 requests
 
-# OCR
+# --- OCR ---
 easyocr==1.7.1
 opencv-python-headless
 Pillow
-pdf2image
 
-# Documents
+# --- PDF / Document processing ---
+pdf2image
+PyPDF2
 python-docx
 python-pptx
-PyPDF2
 
-# MongoDB
+# --- Utilities ---
+numpy<2
 motor
 pymongo
-
-# Utils
 python-dateutil
 tqdm
