@@ -3,5 +3,14 @@ services:
     name: docusort-backend
     runtime: python
     rootDir: backend
-    buildCommand: "apt-get update && apt-get install -y poppler-utils ffmpeg libsm6 libxext6 libgl1 && pip install -r requirements.txt"
-    startCommand: "uvicorn server:app --host 0.0.0.0 --port $PORT"
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+  - type: web
+    name: docusort-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: yarn install && yarn build
+    startCommand: yarn start

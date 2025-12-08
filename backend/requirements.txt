@@ -7,9 +7,11 @@ requests
 
 # OCR
 easyocr==1.7.1
-torch==2.0.1+cpu
-torchvision==0.15.2+cpu
+
+# PyTorch CPU
 --extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.1.0+cpu
+torchvision==0.18.0+cpu
 
 # PDF / Image
 pdf2image
@@ -34,5 +36,6 @@ python-pptx
 PyPDF2
 
 # Utils
+numpy<2
 python-dateutil
 tqdm

@@ -1,5 +1,5 @@
-# Use Python 3.9 (EasyOCR + Torch compatible)
-FROM python:3.9-slim
+# Use Python 3.10 (recommended for Torch + EasyOCR + Transformers)
+FROM python:3.10-slim
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -9,9 +9,10 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libgl1 \
     tesseract-ocr \
-    && apt-get clean
+    build-essential \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set work directory
+# Set working directory
 WORKDIR /app
 
 # Install Python dependencies
@@ -19,10 +20,10 @@ COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the backend code
+# Copy backend code
 COPY . .
 
-# Expose port
+# Expose API port
 EXPOSE 8000
 
 # Run FastAPI app
