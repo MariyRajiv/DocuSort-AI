@@ -15,17 +15,17 @@ ENV PYTHONUNBUFFERED=1 \
 # ----------------------------
 # System dependencies
 # ----------------------------
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        build-essential \
-        libgl1-mesa-glx \
-        libglib2.0-0 \
-        poppler-utils \
-        tesseract-ocr \
-        wget \
-        unzip \
-        git \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    poppler-utils \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
+    libgl1 \
+    libglib2.0-0 \
+    tesseract-ocr \
+    build-essential \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 # ----------------------------
 # Set working directory
