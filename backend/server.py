@@ -19,7 +19,7 @@ from docx import Document as DocxDocument
 from fastapi import FastAPI, File, UploadFile, APIRouter
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from pdf2image import convert_from_bytes,convert_from_path
+from pdf2image import convert_from_bytes
 
 from motor.motor_asyncio import AsyncIOMotorClient
 from sentence_transformers import SentenceTransformer
@@ -27,8 +27,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import easyocr
 
 
-os.environ["PATH"] += os.pathsep + r"C:\poppler-25.12.0\Library\bin"
-convert_from_path("C:/Users/mariy/Downloads/invoice.pdf")
+
 # ----------------------------
 # ENV + Setup
 # ----------------------------
@@ -425,3 +424,9 @@ logger = logging.getLogger(__name__)
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("server:app", host="0.0.0.0", port=port)
