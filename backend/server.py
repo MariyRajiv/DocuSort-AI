@@ -3,7 +3,7 @@ import io
 import uuid
 import logging
 import re
-
+import difflib
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 from datetime import datetime, timezone
@@ -200,7 +200,20 @@ def is_email(text: str, debug: bool = False) -> bool:
 def keyword_score(text, keywords):
     t = text.lower()
     count = sum(1 for k in keywords if k.lower() in t)
-    return min(0.5, count / len(keywords))
+    # remove the 0.5 cap and normalize by keyword count
+    return count / len(keywords) if keywords else 0.0
+
+
+
+def fuzzy_keyword_score(text, keywords, threshold=0.8):
+    """Score keywords using fuzzy matching."""
+    t = text.lower()
+    score = 0
+    for k in keywords:
+        matches = difflib.get_close_matches(k.lower(), t.split(), n=1, cutoff=threshold)
+        if matches:
+            score += 1
+    return score / len(keywords) if keywords else 0.0
 
 def embed_text(text: str):
     """Get sentence embedding from HuggingFace model."""
@@ -247,22 +260,31 @@ def classify(text: str):
     scores = {}
     reasons = {}
     for doc_type, data in DOCUMENT_PATTERNS.items():
-        k = keyword_score(text, data["keywords"])
+        if doc_type == "Invoice":
+            k = fuzzy_keyword_score(text, data["keywords"])
+        else:
+            k = keyword_score(text, data["keywords"])
         s = semantic_score(text, doc_type)
         total = k + s
+        # give reports and invoices a small bonus if certain terms exist
         if doc_type == "Report":
             report_indicators = ["project details", "site report", "project report",
-                                 "status:", "priority:", "due date", "assigned to",
-                                 "description:", "summary:", "issues", "in progress",
-                                 "client name", "client email", "auditor", "site",
-                                 "renovation", "inspection"]
+                                "status:", "priority:", "due date", "assigned to",
+                                "description:", "summary:", "issues", "in progress",
+                                "client name", "client email", "auditor", "site",
+                                "renovation", "inspection"]
             bonus = sum(1 for x in report_indicators if x in text_l)
             total += min(0.30, bonus * 0.05)
+        elif doc_type == "Invoice":
+            invoice_indicators = ["invoice", "amount due", "bill", "total", "gst", "vat"]
+            bonus = sum(1 for x in invoice_indicators if x in text_l)
+            total += min(0.5, bonus * 0.1)  # stronger boost for invoices
         scores[doc_type] = total
-        reasons[doc_type] = f"Keyword score={k:.2f}, semantic score={s:.2f}"
+        reasons[doc_type] = f"Keyword score={k:.2f}, semantic score={s:.2f}, total={total:.2f}"
+
     best = max(scores, key=lambda x: scores[x])
     best_score = scores[best]
-    if best_score < 0.40:
+    if best_score < 0.35:
         return "Others", "Low confidence across all document types", best_score
     return best, "Matched linguistic + semantic patterns", min(best_score, 1.0)
 
