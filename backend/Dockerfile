@@ -1,19 +1,18 @@
 # ----------------------------
-# Base image
+# Base Image
 # ----------------------------
 FROM python:3.11-slim
 
 # ----------------------------
-# Environment variables
+# Environment Config
 # ----------------------------
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
-    POETRY_VIRTUALENVS_CREATE=false \
-    PATH="/root/.local/bin:$PATH"
+    POPPLER_PATH="/usr/bin"
 
 # ----------------------------
-# System dependencies
+# System Dependencies
 # ----------------------------
 RUN apt-get update && apt-get install -y \
     poppler-utils \
@@ -22,33 +21,32 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libgl1 \
     libglib2.0-0 \
-    tesseract-ocr \
     build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-
 # ----------------------------
-# Set working directory
+# Working Directory
 # ----------------------------
 WORKDIR /app
 
 # ----------------------------
-# Copy project files
+# Install Python packages first (cache friendly)
 # ----------------------------
-COPY . /app
-
-# ----------------------------
-# Install Python dependencies
-# ----------------------------
+COPY requirements.txt /app/
 RUN pip install --upgrade pip setuptools wheel && \
     pip install -r requirements.txt
 
 # ----------------------------
-# Expose port
+# Copy Rest of the App
+# ----------------------------
+COPY . /app
+
+# ----------------------------
+# Expose Port
 # ----------------------------
 EXPOSE 8000
 
 # ----------------------------
-# Run the app
+# Run App
 # ----------------------------
 CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

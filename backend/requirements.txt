@@ -1,4 +1,3 @@
-# FastAPI + server
 fastapi
 uvicorn[standard]
 python-multipart
@@ -8,38 +7,19 @@ requests
 
 # OCR
 easyocr==1.7.1
-
-# PyTorch CPU
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.3.0+cpu
-torchvision==0.18.0+cpu
-
-# PDF / Image
-pdf2image
-Pillow
 opencv-python-headless
-
-# NLP
-transformers
-sentence-transformers
-tokenizers
-
-# Cloud / Storage
-boto3
-
-# Database
-motor
-pymongo
+Pillow
+pdf2image
 
 # Documents
 python-docx
 python-pptx
 PyPDF2
 
+# MongoDB
+motor
+pymongo
+
 # Utils
-numpy<2
 python-dateutil
 tqdm
-
-# Optional: for memory-efficient temp files
-pdf2image[pillow]
