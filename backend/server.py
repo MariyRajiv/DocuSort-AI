@@ -31,6 +31,9 @@ import easyocr
 # ----------------------------
 ROOT_DIR = Path(__file__).parent
 
+# ----------------------------
+# Load environment (.env)
+# ----------------------------
 if (ROOT_DIR / ".env").exists():
     from dotenv import load_dotenv
     load_dotenv(ROOT_DIR / ".env")
@@ -43,11 +46,43 @@ HEADERS = {"Authorization": f"Bearer {HF_API_KEY}"} if HF_API_KEY else {}
 if not HF_API_KEY:
     logging.warning("HF_API_KEY not found in environment. Embedding and HF OCR calls will fail.")
 
+# ----------------------------
+# Database
+# ----------------------------
 client = AsyncIOMotorClient(os.getenv("MONGO_URL")) if os.getenv("MONGO_URL") else None
 db = client[os.getenv("DB_NAME", "documents")] if client else None
 
+# ----------------------------
+# FastAPI App
+# ----------------------------
 app = FastAPI()
 api = APIRouter(prefix="/api")
+
+# ----------------------------
+# CORS FIX (IMPORTANT)
+# ----------------------------
+origins = [
+    "https://docusortai-frontend.onrender.com",  # Render frontend
+    "http://localhost:3000",                     # Local dev
+    "http://localhost:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ----------------------------
+# Your API routes go below
+# ----------------------------
+@app.get("/")
+def root():
+    return {"status": "backend running"}
+
+app.include_router(api)
 
 def load_reader():
     return easyocr.Reader(['en'], gpu=False)
