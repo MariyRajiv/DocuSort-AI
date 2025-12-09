@@ -12,8 +12,7 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = BACKEND_URL;
-
+const API = `${BACKEND_URL}/api`;
 
 function App() {
   const [isDragging, setIsDragging] = useState(false);
@@ -101,7 +100,7 @@ function App() {
         formData.append('files', file);
       });
 
-      const response = await axios.post(`${API}/api/classify`, formData, {
+      const response = await axios.post(`${API}/classify`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

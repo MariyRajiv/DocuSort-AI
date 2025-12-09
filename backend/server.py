@@ -84,7 +84,7 @@ app.add_middleware(
 def root():
     return {"status": "backend running"}
 
-app.include_router(api)
+
 
 def load_reader():
     return easyocr.Reader(['en'], gpu=False)
@@ -560,7 +560,7 @@ async def history():
             x["timestamp"] = datetime.fromisoformat(x["timestamp"])
     return items
 
-
+app.include_router(api)
 @app.on_event("shutdown")
 async def shutdown_db_client():
     if client:
