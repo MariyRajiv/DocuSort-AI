@@ -49,8 +49,9 @@ db = client[os.getenv("DB_NAME", "documents")] if client else None
 app = FastAPI()
 api = APIRouter(prefix="/api")
 
-# EasyOCR reader (kept as you requested)
-reader = easyocr.Reader(['en'], gpu=False)
+def load_reader():
+    return easyocr.Reader(['en'], gpu=False)
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -129,6 +130,7 @@ def extract_text_from_image(raw):
         arr = np.array(image)
         processed = preprocess_image(arr)
         try:
+            reader = load_reader() 
             text_list = reader.readtext(processed, detail=0)
         except Exception as e:
             logger.warning("EasyOCR processing error: %s", e)
@@ -137,6 +139,7 @@ def extract_text_from_image(raw):
         if not text_list:
             # try raw arr
             try:
+                reader = load_reader() 
                 text_list = reader.readtext(arr, detail=0)
             except Exception:
                 text_list = []
@@ -183,6 +186,7 @@ def extract_text_from_pdf_with_ocr(raw):
             try:
                 arr = np.array(page)
                 processed = preprocess_image(arr)
+                reader = load_reader() 
                 page_text = " ".join(str(t) for t in (reader.readtext(processed, detail=0) or []))
                 if not page_text or len(page_text.split()) < 3:
                     page_text = " ".join(str(t) for t in (reader.readtext(np.array(page), detail=0) or []))
