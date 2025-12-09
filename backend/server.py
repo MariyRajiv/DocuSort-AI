@@ -62,9 +62,11 @@ api = APIRouter(prefix="/api")
 # CORS FIX (IMPORTANT)
 # ----------------------------
 origins = [
-    "https://docusortai-frontend.onrender.com",  # Render frontend
-    "http://localhost:3000",                     # Local dev
+    "https://docusortai-frontend.onrender.com",
+    "http://localhost:3000",
     "http://localhost:5173",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5173",
 ]
 
 app.add_middleware(
@@ -557,15 +559,6 @@ async def history():
         if isinstance(x.get("timestamp"), str):
             x["timestamp"] = datetime.fromisoformat(x["timestamp"])
     return items
-
-
-app.include_router(api)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
 
 
 @app.on_event("shutdown")
