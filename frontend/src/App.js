@@ -100,7 +100,7 @@ function App() {
         formData.append('files', file);
       });
 
-      const response = await axios.post(`${API}/classify`, formData, {
+      const response = await axios.post(`${API}/api/classify`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
