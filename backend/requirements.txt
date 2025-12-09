@@ -11,15 +11,17 @@ easyocr==1.7.1
 opencv-python-headless
 Pillow
 
-# --- PDF / Document processing ---
+# --- PDF / Documents ---
 pdf2image
 PyPDF2
 python-docx
 python-pptx
 
-# --- Utilities ---
-numpy<2
+# --- Database ---
 motor
 pymongo
+
+# --- Utils ---
+numpy<2
 python-dateutil
 tqdm

@@ -19,5 +19,5 @@ services:
     rootDir: frontend
     runtime: static
     buildCommand: yarn install && yarn build
-    staticPublishPath: dist
+    staticPublishPath: build
     autoDeploy: true
